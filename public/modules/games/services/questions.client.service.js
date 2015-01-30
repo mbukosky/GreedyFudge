@@ -9,15 +9,20 @@ angular.module('games').factory('Questions', ['$http',
 		return {
 			getQuestions: function() {
                 var questions = [];
-                
-                for (var ctr = 0; ctr < 9; ctr++) {
+                var albums = [];
+
+                for (var ctr = 0; ctr <= 9; ctr++) {
                     $http.get('/question').success(function (data, status) {
-                        questions.push(data);
+                        //if (albums.indexOf(data.albumTitle) == -1) {
+                            questions.push(data);
+                            albums.push(data.albumTitle);
+                        //}
                         //console.log(data);
                     
                     });
                 }
-
+                //console.log(albums);
+                //console.log(questions.length);
                 return questions;
                
                 //return [{ Definition: 'Abbey Road', Answers: [{ Response: 'Beatles', IsCorrect: true }, { Response: 'Metallica', IsCorrect: false }] }, { Definition: 'Appetite for Destruction', Answers: [{ Response: 'Beatles', IsCorrect: false }, { Response: 'Guns and Roses', IsCorrect: true }] }];
