@@ -1,14 +1,14 @@
 ﻿<div data-ng-controller="GamesController">
     <h3>Round: <span class="label label-success">{{Round + 1}}</span></h3>
     <h3>Score: <span class="label label-warning">{{Score}}</span></h3>
-    <h2>Album: {{Questions[Round].Definition}}</h2>
+    <h2>Album: {{Questions[Round].albumTitle}}</h2>
 
     <label>Pick the Artist:</label>
     <div class="form-group">
-            <div class="radio" ng-repeat="answer in Questions[Round].Answers">
+            <div class="radio" ng-repeat="answer in Questions[Round].possibleAnswers">
                 <label>
-                    <input type="radio" name="userResponse" value="{{answer.Response}}" ng-model="$parent.userResponse">
-                    {{answer.Response}}
+                    <input type="radio" name="userResponse" value="{{answer.artist}}" ng-model="$parent.userResponse">
+                    {{answer.artist}}
                 </label>
             </div>
         </div>

@@ -30,13 +30,14 @@
 
     ValidateResponse = function () {
         var index, len;
-        for (index = 0, len = $scope.Questions[$scope.Round].Answers.length; index < len; ++index) {
+        for (index = 0, len = $scope.Questions[$scope.Round].possibleAnswers.length; index < len; ++index) {
             //console.log($scope.Questions[$scope.Round].Answers[index].Response);
             
-            if ($scope.userResponse === $scope.Questions[$scope.Round].Answers[index].Response && $scope.Questions[$scope.Round].Answers[index].IsCorrect) {
+            if ($scope.userResponse === $scope.Questions[$scope.Round].possibleAnswers[index].artist && $scope.Questions[$scope.Round].possibleAnswers[index].correct) {
                 $scope.Score++;
             }
-        }
+            }
+            $scope.userResponse = "";
         //console.log($scope.userResponse);  
     };
 }]);
