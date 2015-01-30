@@ -1,9 +1,9 @@
-﻿angular.module('articles').controller("GamesController", function ($scope,$location) {
+﻿angular.module('articles').controller("GamesController",['$scope','$location','Questions','Players', function ($scope,$location, Questions,Players) {
     $scope.Score = 0;
     $scope.Round = 0;
     //$scope.userResponse = "";
-    $scope.Questions = [{ Definition: 'Abbey Road', Answers: [{ Response: 'Beatles', IsCorrect: true }, { Response: 'Metallica', IsCorrect: false }] }, { Definition: 'Appetite for Destruction', Answers: [{ Response: 'Beatles', IsCorrect: true }, { Response: 'Metallica', IsCorrect: false }] }];
-    
+    $scope.Questions = Questions.getQuestions();
+        $scope.GetScore = Players.getScore();
 
     $scope.SubmitAnswer = function () {
         //validate answer
@@ -14,19 +14,29 @@
             // move to next round if there is a question. otherwise go to another view and say good job.
             if ($scope.Round >= $scope.Questions.length) {
                 // how do we pass score?
+                Players.setScore($scope.Score);
                 $location.path('endGame');
             }
         //}
     };
     $scope.NewGame = function () {
-        //reset questions, score, round etc.
-        console.log("new game");
-        
+        //reset questions, score, round etc.        
+        $scope.Score = 0;
+        $scope.Round = 0;
+        Players.setScore(0);
+
         $location.path('/game');
     };
 
     ValidateResponse = function () {
-        console.log($scope.userResponse);
-        $scope.Score++;
+        var index, len;
+        for (index = 0, len = $scope.Questions[$scope.Round].Answers.length; index < len; ++index) {
+            //console.log($scope.Questions[$scope.Round].Answers[index].Response);
+            
+            if ($scope.userResponse === $scope.Questions[$scope.Round].Answers[index].Response && $scope.Questions[$scope.Round].Answers[index].IsCorrect) {
+                $scope.Score++;
+            }
+        }
+        //console.log($scope.userResponse);  
     };
-});
+}]);
