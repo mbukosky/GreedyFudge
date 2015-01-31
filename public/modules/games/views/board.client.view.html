@@ -1,7 +1,17 @@
 ﻿<div data-ng-controller="GamesController">
-    <h2>Round: <span class="label label-success">{{questions.length}}</span></h2>
-    <div>question directive</div>
-    <ul>
-        <li ng-repeat="item in players"><player></player></li>
-    </ul>
+    <h3>Round: <span class="label label-success">{{Round + 1}}</span></h3>
+    <h3>Score: <span class="label label-warning">{{Score}}</span></h3>
+    <h2>Album: {{Questions[Round].albumTitle}}</h2>
+
+    <label>Pick the Artist:</label>
+    <div class="form-group">
+            <div class="radio" ng-repeat="answer in Questions[Round].possibleAnswers">
+                <label>
+                    <input type="radio" name="userResponse" value="{{answer.artist}}" ng-model="$parent.userResponse">
+                    {{answer.artist}}
+                </label>
+            </div>
+        </div>
+
+    <button type="submit" class="btn btn-danger btn-lg" ng-click="SubmitAnswer()">Answer!</button>
 </div>
